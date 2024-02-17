@@ -56,6 +56,7 @@
             {
                 let num = 0;
                 let interval;
+                let dec = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'};
 
 				function toBinary(num) {
 					return ("0000" + num.toString(2)).slice(-4);
@@ -73,8 +74,6 @@
 
                     interval = setInterval(() =>
                     {
-                        let dec = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'};
-
                         num = (num + 1) % 16;
                         const binary = toBinary(num);
                         const decimal = binaryToDecimal(binary);
@@ -92,7 +91,6 @@
                             $(this).removeAttr('disabled');
                             $(this).text('Ulang');
                         }
-                        
                     }, 1250);
                 });
 
@@ -101,7 +99,7 @@
                     $(this).attr('disabled', 'disabled');
                     $("#mulai").removeAttr('disabled');
                     clearInterval(interval);
-                })
+                });
 			});
 		</script>
 	</body>
