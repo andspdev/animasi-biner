@@ -69,6 +69,7 @@
                 {
                     $(this).attr('disabled', 'disabled');
                     $("#stop").removeAttr('disabled');
+                    $(this).text('Mulai');
 
                     interval = setInterval(() =>
                     {
@@ -80,12 +81,9 @@
 
                         $("#binary-text").text(binary);
 
-                        if (num >= 10) {
-                            $("#desimal-text").text(`${dec[num]}`);                            
-                        }
-                        else {
-                            $("#desimal-text").text(`Desimal: ${decimal}`);
-                        }
+                        $("#binary-text").text(binary);
+                        let content_desimal = (num >= 10) ? `${dec[num]}` : `Desimal: ${decimal}`;
+                        $("#desimal-text").html(content_desimal);
 
                         if (decimal === 15) {
                             clearInterval(interval);
