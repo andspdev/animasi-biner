@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Binary Animation</title>
+		<style>
+            body {
+                font-family: Calibri;
+            }
+			.content {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                text-align: center;
+                transform: translate(-50%, -60%);
+            }
+
+            .content #binary-text {
+                font-size: 5em;
+                text-shadow: 0 0 5px #999;
+            }
+
+            .content #desimal-text {
+                margin: 20px 0;
+                display: block;
+                font-size: 25px;
+                color: #999
+            }
+
+            button {
+                font-size: 18px;
+                padding: 12px 15px;
+                width: 100px;
+                border: none;
+                border-radius: 8px;
+                margin: 0 2px;
+                cursor: pointer;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="content">
+            <h1>ANIMASI BINER</h1>
+            <div id="binary-text">0000</div>
+            <span id="desimal-text">Desimal: 0</span>
+
+            <button id="stop" disabled>Berhenti</button> 
+            <button id="mulai">Mulai</button>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script>
+			$(document).ready(function() 
+            {
+                let num = 0;
+                let interval;
+
+				function toBinary(num) {
+					return ("0000" + num.toString(2)).slice(-4);
+				}
+
+				function binaryToDecimal(binary) {
+					return parseInt(binary, 2);
+				}
+
+				$("#mulai").click(function(e)
+                {
+                    $(this).attr('disabled', 'disabled');
+                    $("#stop").removeAttr('disabled');
+
+                    interval = setInterval(() =>
+                    {
+                        let dec = {10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'};
+
+                        num = (num + 1) % 16;
+                        const binary = toBinary(num);
+                        const decimal = binaryToDecimal(binary);
+
+                        $("#binary-text").text(binary);
+
+                        if (num >= 10) {
+                            $("#desimal-text").text(`${dec[num]}`);                            
+                        }
+                        else {
+                            $("#desimal-text").text(`Desimal: ${decimal}`);
+                        }
+
+                        if (decimal === 15) {
+                            clearInterval(interval);
+
+                            $("#stop").attr('disabled', 'disabled');
+                            $(this).removeAttr('disabled');
+                            $(this).text('Ulang');
+                        }
+                        
+                    }, 1250);
+                });
+
+                $("#stop").click(function(e)
+                {
+                    $(this).attr('disabled', 'disabled');
+                    $("#mulai").removeAttr('disabled');
+                    clearInterval(interval);
+                })
+			});
+		</script>
+	</body>
+</html>
